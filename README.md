@@ -60,10 +60,14 @@ npm install
 
 ### 2. Environment Variables
 
-Create a `.env` file in the root directory (based on `.env.example`) and add your Gemini API Key for the Streako AI Coach feature:
+Create a `.env` file in the root directory (based on `.env.example`) and configure your API keys for the Streako AI Coach feature. GrindStreaks features a resilient dual-LLM architecture: it will try Groq first (for blazing fast Llama 3.3 70B responses) and gracefully fallback to Gemini if Groq rate limits or fails.
 
 ```env
-GEMINI_API_KEY="your_api_key_here"
+# Required (Fallback / Default)
+GEMINI_API_KEY="your_gemini_api_key_here"
+
+# Optional (Primary fast inference)
+GROQ_API_KEY="your_groq_api_key_here"
 ```
 
 ### 3. Run the Development Server
@@ -99,3 +103,17 @@ npm run start
 ```
 
 The server listens on port `3000` (or your configured `$PORT`) and serves both the API endpoints and the frontend static files.
+
+### 3. Deploying to Render (Recommended)
+
+Render makes it incredibly easy to host full-stack Node.js applications.
+
+1. Create a new **Web Service** on [Render](https://render.com/) and connect your GitHub repository.
+2. Configure the service with the following settings:
+   - **Environment**: `Node`
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm run start`
+3. Add your Environment Variables under the "Environment" tab:
+   - `GEMINI_API_KEY`: `<your_gemini_api_key>` (Required for fallback)
+   - `GROQ_API_KEY`: `<your_groq_api_key>` (Optional, highly recommended for faster Llama 3.3 responses)
+4. Click **Deploy**. Render will automatically build and launch your full-stack app!
