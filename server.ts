@@ -7,7 +7,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 app.use(express.json({ limit: "5mb" }));
 
@@ -79,9 +79,13 @@ async function callGroqAPI(apiKey: string, options: any): Promise<string> {
 
   if (isJsonExpected) {
     payload.response_format = { type: "json_object" };
+    let schemaPrompt = "Ensure the output is properly formatted as a JSON object.";
+    if (options.config?.responseSchema) {
+      schemaPrompt += `\n\nCRITICAL: Your JSON output MUST STRICTLY follow this JSON schema structure:\n${JSON.stringify(options.config.responseSchema, null, 2)}\n\nDo not include any keys outside of this schema. Do not return markdown blocks, only the raw JSON string.`;
+    }
     payload.messages.push({
       role: "system",
-      content: "Ensure the output is properly formatted as a JSON object."
+      content: schemaPrompt
     });
   }
 
@@ -135,7 +139,7 @@ async function generateContentWithFallbackAndRetry(
   }
 
   let lastError: any = null;
-  const originalModel = options.model || "gemini-3.5-flash";
+  const originalModel = options.model || "gemini-2.0-flash";
   let currentModel = originalModel;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
@@ -174,21 +178,21 @@ async function generateContentWithFallbackAndRetry(
     }
   }
 
-  // If gemini-3.5-flash failed after retries, try gemini-3.1-flash-lite as fallback
-  if (currentModel === "gemini-3.5-flash") {
-    console.warn("[AI Request] Gemini Retries exhausted for gemini-3.5-flash. Falling back to gemini-3.1-flash-lite...");
+  // If gemini-2.0-flash failed after retries, try gemini-1.5-flash as fallback
+  if (currentModel === "gemini-2.0-flash") {
+    console.warn("[AI Request] Gemini Retries exhausted for gemini-2.0-flash. Falling back to gemini-1.5-flash...");
     try {
       const response = await withTimeout(
         activeAi.models.generateContent({
           ...options,
-          model: "gemini-3.1-flash-lite",
+          model: "gemini-1.5-flash",
         }),
         10000,
         "Gemini fallback timed out"
       );
       return { text: response.text || "" };
     } catch (fallbackError: any) {
-      console.error("[AI Request] Fallback to gemini-3.1-flash-lite failed:", fallbackError.message || fallbackError);
+      console.error("[AI Request] Fallback to gemini-1.5-flash failed:", fallbackError.message || fallbackError);
       throw lastError || fallbackError;
     }
   }
@@ -284,7 +288,7 @@ Ensure the highlights contain interesting, computed data-driven metrics in human
 `;
 
     const response = await generateContentWithFallbackAndRetry(ai, {
-      model: "gemini-3.5-flash",
+      model: "gemini-2.0-flash",
       contents: promptText,
       config: {
         responseMimeType: "application/json",
@@ -354,7 +358,7 @@ app.get("/api/ai/quote", async (req, res) => {
     const promptText = `Generate a single, short, powerful, minimalist motivational quote for a student/developer named "${name}" who is starting their day. Keep it under 15 words, clean, and deeply inspiring. Avoid cliché phrases. Do not put quotation marks around the response.`;
 
     const response = await generateContentWithFallbackAndRetry(ai, {
-      model: "gemini-3.5-flash",
+      model: "gemini-2.0-flash",
       contents: promptText,
     });
 
@@ -657,7 +661,7 @@ User's Message:
 `;
 
     const response = await generateContentWithFallbackAndRetry(ai, {
-      model: "gemini-3.5-flash",
+      model: "gemini-2.0-flash",
       contents: systemPrompt,
       config: {
         responseMimeType: "application/json",
