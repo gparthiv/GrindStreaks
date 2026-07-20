@@ -194,7 +194,7 @@ export const Heatmap: React.FC<HeatmapProps> = ({ history, todayRecord, id }) =>
   }, [gridData]);
 
   return (
-    <Card id={id} className="p-6 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800 relative rounded-[16px] shadow-sm">
+    <Card id={id} className="p-6 bg-white dark:bg-zinc-900 relative rounded-2xl">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5">
         <div className="space-y-1">
           <h3 className="font-sans font-semibold text-[#3C4043] dark:text-zinc-100 text-base flex items-center gap-1.5">
@@ -208,23 +208,23 @@ export const Heatmap: React.FC<HeatmapProps> = ({ history, todayRecord, id }) =>
 
         {/* Navigation Controls */}
         <div className="flex items-center gap-2 self-stretch sm:self-auto justify-between">
-          <div className="flex border border-[#E0E3E7] dark:border-zinc-800 rounded-lg overflow-hidden text-xs shadow-sm">
+          <div className="flex bg-zinc-50 dark:bg-zinc-950/60 p-1 rounded-xl text-xs">
             <button
               onClick={handlePrevMonth}
-              className="p-2 bg-white hover:bg-[#F1F3F4] dark:bg-zinc-950 dark:hover:bg-zinc-900 border-r border-[#E0E3E7] dark:border-zinc-800 text-gray-600 dark:text-zinc-400 transition-colors"
+              className="p-2 hover:bg-black/5 dark:hover:bg-white/5 text-gray-600 dark:text-zinc-400 rounded-lg transition-colors bg-transparent border-none cursor-pointer"
               title="Previous Month"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={handleCurrentMonth}
-              className="px-3 py-2 bg-white hover:bg-[#F1F3F4] dark:bg-zinc-950 dark:hover:bg-zinc-900 border-r border-[#E0E3E7] dark:border-zinc-800 font-semibold text-gray-700 dark:text-zinc-300 transition-colors"
+              className="px-3 py-2 hover:bg-black/5 dark:hover:bg-white/5 font-semibold text-gray-700 dark:text-zinc-300 rounded-lg transition-colors bg-transparent border-none cursor-pointer"
             >
               Today
             </button>
             <button
               onClick={handleNextMonth}
-              className="p-2 bg-white hover:bg-[#F1F3F4] dark:bg-zinc-950 dark:hover:bg-zinc-900 text-gray-600 dark:text-zinc-400 transition-colors"
+              className="p-2 hover:bg-black/5 dark:hover:bg-white/5 text-gray-600 dark:text-zinc-400 rounded-lg transition-colors bg-transparent border-none cursor-pointer"
               title="Next Month"
             >
               <ChevronRight className="w-4 h-4" />
@@ -286,7 +286,7 @@ export const Heatmap: React.FC<HeatmapProps> = ({ history, todayRecord, id }) =>
       </div>
 
       {/* Grid Legend */}
-      <div className="flex justify-between items-center mt-4 pt-4 border-t border-[#F1F3F4] dark:border-zinc-800/50 text-[10px] text-[#5F6368] dark:text-zinc-500 font-medium">
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-6 pt-2 text-[10px] text-[#5F6368] dark:text-zinc-500 font-medium gap-2">
         <span>* Completed main tasks are calculated to evaluate the consistency index.</span>
         <div className="flex items-center gap-1">
           <span>Less</span>

@@ -414,7 +414,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
   return (
     <div id={id} className="space-y-6 max-w-7xl mx-auto pb-12 print:bg-white print:p-0">
       {/* Month Filter and Controls Banner */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800 p-4 rounded-[16px] print:hidden shadow-sm">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-zinc-900 p-5 rounded-2xl print:hidden shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
         <div className="flex items-center gap-3">
           <Calendar className="w-5 h-5 text-[#4285F4]" />
           <div className="space-y-0.5">
@@ -458,14 +458,14 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
         <div className="flex flex-wrap gap-2 w-full sm:w-auto">
           <button
             onClick={() => exportToCSV(combinedHistory, selectedMonth)}
-            className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 bg-white hover:bg-[#F1F3F4] border border-[#E0E3E7] rounded-xl text-xs text-[#3C4043] dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-850 font-bold shadow-sm transition-all cursor-pointer"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 bg-zinc-50 hover:bg-zinc-100 rounded-xl text-xs text-[#3C4043] dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-300 font-bold transition-all border-none cursor-pointer"
           >
             <FileSpreadsheet className="w-4 h-4 text-[#34A853]" />
             Export CSV
           </button>
           <button
             onClick={exportToPDF}
-            className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 bg-[#1A73E8] hover:bg-blue-600 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-500/10 cursor-pointer"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 bg-[#1A73E8] hover:bg-blue-600 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-500/10 cursor-pointer border-none"
           >
             <FileText className="w-4 h-4" />
             Save as PDF
@@ -483,7 +483,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             
             {/* Metric 1 */}
-            <Card className="p-4 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800/80 hover:shadow-sm rounded-[16px] transition-all">
+            <Card className="p-4 bg-white dark:bg-zinc-900/60 hover:shadow-md rounded-[16px] transition-all shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
               <span className="text-[10px] text-[#5F6368] dark:text-zinc-500 uppercase tracking-wider font-bold">Total Hours</span>
               <div className="flex items-center gap-2 mt-2">
                 <div className="p-1.5 rounded-lg bg-[#4285F4]/10 text-[#4285F4]">
@@ -496,7 +496,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
             </Card>
 
             {/* Metric 2 */}
-            <Card className="p-4 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800/80 hover:shadow-sm rounded-[16px] transition-all">
+            <Card className="p-4 bg-white dark:bg-zinc-900/60 hover:shadow-md rounded-[16px] transition-all shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
               <span className="text-[10px] text-[#5F6368] dark:text-zinc-500 uppercase tracking-wider font-bold">Daily Average</span>
               <div className="flex items-center gap-2 mt-2">
                 <div className="p-1.5 rounded-lg bg-[#34A853]/10 text-[#34A853]">
@@ -509,7 +509,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
             </Card>
 
             {/* Metric 3 */}
-            <Card className="p-4 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800/80 hover:shadow-sm rounded-[16px] transition-all">
+            <Card className="p-4 bg-white dark:bg-zinc-900/60 hover:shadow-md rounded-[16px] transition-all shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
               <span className="text-[10px] text-[#5F6368] dark:text-zinc-500 uppercase tracking-wider font-bold">Completion %</span>
               <div className="flex items-center gap-2 mt-2">
                 <div className="p-1.5 rounded-lg bg-[#FBBC05]/10 text-[#FBBC05]">
@@ -522,7 +522,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
             </Card>
 
             {/* Metric 4 */}
-            <Card className="p-4 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800/80 hover:shadow-sm rounded-[16px] transition-all">
+            <Card className="p-4 bg-white dark:bg-zinc-900/60 hover:shadow-md rounded-[16px] transition-all shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
               <span className="text-[10px] text-[#5F6368] dark:text-zinc-500 uppercase tracking-wider font-bold">Max Session</span>
               <div className="flex items-center gap-2 mt-2">
                 <div className="p-1.5 rounded-lg bg-[#EA4335]/10 text-[#EA4335]">
@@ -535,7 +535,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
             </Card>
 
             {/* Metric 5 */}
-            <Card className="p-4 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800/80 hover:shadow-sm rounded-[16px] transition-all">
+            <Card className="p-4 bg-white dark:bg-zinc-900/60 hover:shadow-md rounded-[16px] transition-all shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
               <span className="text-[10px] text-[#5F6368] dark:text-zinc-500 uppercase tracking-wider font-bold">Routine Time</span>
               <div className="flex items-center gap-2 mt-2">
                 <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-500 dark:bg-purple-950/30">
@@ -550,7 +550,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
 
           {/* Visual Charts Block */}
           {monthStats.monthRecordsCount === 0 ? (
-            <Card className="p-8 text-center text-gray-400 bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800">
+            <Card className="p-8 text-center text-gray-400 bg-white dark:bg-zinc-900/60 rounded-2xl">
               <AlertCircle className="w-8 h-8 text-gray-300 mx-auto mb-2" />
               <p className="text-sm">No recorded tracking history available for this month yet.</p>
             </Card>
@@ -558,7 +558,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               {/* Pie Chart: Time Spent Per Category */}
-              <Card className="p-5 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800 flex flex-col h-full justify-between rounded-[16px] shadow-sm">
+              <Card className="p-5 bg-white dark:bg-zinc-900/60 flex flex-col h-full justify-between rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
                 <div className="space-y-1 mb-4">
                   <h4 className="font-semibold text-[#3C4043] dark:text-zinc-100 flex items-center gap-1.5 text-sm font-sans">
                     <PieIcon className="w-4 h-4 text-[#FBBC05]" />
@@ -609,7 +609,58 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
               </Card>
 
               {/* Bar Chart: Weekly trend */}
-              <Card className="p-5 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800 flex flex-col h-full justify-between rounded-[16px] shadow-sm">
+              <Card className="p-5 bg-white dark:bg-zinc-900/60 flex flex-col h-full justify-between rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
+                <div className="space-y-1 mb-4">
+                  <h4 className="font-semibold text-[#3C4043] dark:text-zinc-100 flex items-center gap-1.5 text-sm font-sans">
+                    <PieIcon className="w-4 h-4 text-[#FBBC05]" />
+                    Time Spent per Category
+                  </h4>
+                  <p className="text-[10px] text-[#5F6368] dark:text-zinc-500">Distribution of hours logged for each discipline.</p>
+                </div>
+
+                <div className="h-[220px] md:h-[260px] lg:h-[300px] xl:h-[340px]">
+                  {monthStats.categoryPieData.length === 0 ? (
+                    <div className="h-full flex items-center justify-center text-xs text-gray-400">
+                      No completed session data for this month.
+                    </div>
+                  ) : (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={monthStats.categoryPieData}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={60}
+                          outerRadius={80}
+                          paddingAngle={3}
+                          dataKey="value"
+                        >
+                          {monthStats.categoryPieData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={GOOGLE_COLORS[index % GOOGLE_COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <RechartsTooltip formatter={(value) => [`${value} hours`, "Work Log"]} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  )}
+                </div>
+
+                {/* Legend list */}
+                <div className="grid grid-cols-2 gap-2 mt-4 text-[10px] text-gray-500 dark:text-zinc-400 font-semibold">
+                  {monthStats.categoryPieData.map((item, idx) => (
+                    <div key={item.name} className="flex items-center gap-1.5">
+                      <div
+                        className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: GOOGLE_COLORS[idx % GOOGLE_COLORS.length] }}
+                      />
+                      <span className="truncate">{item.name} ({item.value}h)</span>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+
+              {/* Bar Chart: Weekly trend */}
+              <Card className="p-5 bg-white dark:bg-zinc-900/60 flex flex-col h-full justify-between rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
                 <div className="space-y-1 mb-4">
                   <h4 className="font-semibold text-[#3C4043] dark:text-zinc-100 flex items-center gap-1.5 text-sm font-sans">
                     <BarChart2 className="w-4 h-4 text-[#4285F4]" />
@@ -641,7 +692,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
           )}
 
           {/* Daily Timeline Tracker Grid */}
-          <Card className="p-5 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800 rounded-[16px] shadow-sm">
+          <Card className="p-5 bg-white dark:bg-zinc-900/60 rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
             <h4 className="font-semibold text-[#3C4043] dark:text-zinc-100 text-sm mb-3">
               Monthly Calendar Breakdown
             </h4>
@@ -652,7 +703,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
                 .map(([date, record]) => (
                   <div
                     key={date}
-                    className="flex justify-between items-center p-2.5 bg-[#F8F9FA] dark:bg-zinc-950 border border-[#F1F3F4] dark:border-zinc-900 rounded-xl text-xs"
+                    className="flex justify-between items-center p-3 bg-zinc-50 dark:bg-zinc-950/40 rounded-xl text-xs"
                   >
                     <span className="font-sans text-[#5F6368] dark:text-zinc-400 font-bold">{date}</span>
                     <div className="flex items-center gap-4">
@@ -684,8 +735,8 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
         <div className="space-y-6">
           
           {/* Productivity score gauge */}
-          <Card className="p-5 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800 relative overflow-hidden flex flex-col justify-between items-center text-center rounded-[16px] shadow-sm">
-            <div className="absolute top-2 right-2 p-1 text-[#EA4335] bg-[#EA4335]/10 rounded-lg">
+          <Card className="p-5 bg-white dark:bg-zinc-900/60 relative overflow-hidden flex flex-col justify-between items-center text-center rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
+            <div className="absolute top-3 right-3 p-1.5 text-[#EA4335] bg-[#EA4335]/10 rounded-xl">
               <Zap className="w-4 h-4" />
             </div>
             
@@ -721,8 +772,8 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
           </Card>
 
           {/* Programmatic Pattern Analysis */}
-          <Card className="p-5 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800 rounded-[16px] shadow-sm space-y-4">
-            <div className="space-y-1 pb-3 border-b border-[#F1F3F4] dark:border-zinc-800/60">
+          <Card className="p-5 bg-white dark:bg-zinc-900/60 rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.015)] space-y-4">
+            <div className="space-y-1 pb-3 mb-1">
               <span className="text-[10px] text-[#5F6368] dark:text-zinc-500 uppercase tracking-widest font-bold">
                 Local Pattern Engine
               </span>
@@ -755,7 +806,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
                 </div>
 
                 {/* 2. Consistency */}
-                <div className="space-y-1.5 pt-3 border-t border-[#F1F3F4] dark:border-zinc-800/60">
+                <div className="space-y-1.5 pt-1">
                   <div className="flex justify-between items-center text-[10px] font-bold text-[#5F6368] dark:text-zinc-500 uppercase tracking-wider">
                     <span>Stability Index</span>
                     <span className="bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 px-1.5 py-0.5 rounded font-sans font-bold text-[9px] uppercase tracking-normal">
@@ -768,7 +819,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
                 </div>
 
                 {/* 3. Time Preference */}
-                <div className="space-y-1.5 pt-3 border-t border-[#F1F3F4] dark:border-zinc-800/60">
+                <div className="space-y-1.5 pt-1">
                   <div className="flex justify-between items-center text-[10px] font-bold text-[#5F6368] dark:text-zinc-500 uppercase tracking-wider">
                     <span>Time Preference</span>
                     <span className="text-blue-500">Analysis</span>
@@ -779,7 +830,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
                 </div>
 
                 {/* 4. Habit Analysis */}
-                <div className="space-y-1.5 pt-3 border-t border-[#F1F3F4] dark:border-zinc-800/60">
+                <div className="space-y-1.5 pt-1">
                   <div className="flex justify-between items-center text-[10px] font-bold text-[#5F6368] dark:text-zinc-500 uppercase tracking-wider">
                     <span>Habit Structure</span>
                     <span className="text-purple-500">Analysis</span>
@@ -790,7 +841,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
                 </div>
 
                 {/* 5. Smart Suggestions */}
-                <div className="p-3 bg-[#F8F9FA] dark:bg-zinc-950 border border-[#F1F3F4] dark:border-zinc-800 rounded-xl space-y-1">
+                <div className="p-3.5 bg-zinc-50 dark:bg-zinc-950/50 rounded-xl space-y-1">
                   <span className="text-[9px] font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-widest block">
                     Smart System Suggestion
                   </span>
@@ -804,22 +855,21 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
               </div>
             )}
           </Card>
-
           {/* AI consistency recommendations coach */}
-          <Card className="p-5 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800 flex flex-col justify-between relative min-h-[300px] rounded-[16px] shadow-sm">
+          <Card className="p-5 bg-white dark:bg-zinc-900/60 flex flex-col justify-between relative min-h-[300px] rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.015)]">
             
-            <div className="flex justify-between items-center pb-3 border-b border-[#F1F3F4] dark:border-zinc-900">
+            <div className="flex justify-between items-center pb-3">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-[#4285F4]" />
                 <h4 className="font-sans font-semibold text-[#3C4043] dark:text-zinc-200 text-sm">
-                  AI Consistency Coach
+                  Streako (Mascot Coach)
                 </h4>
               </div>
               <button
                 onClick={() => handleFetchAIInsights(true)}
                 disabled={aiLoading}
-                className="p-1 text-[#5F6368] hover:text-[#1A73E8] dark:hover:text-zinc-300 rounded hover:bg-[#F1F3F4] dark:hover:bg-zinc-900 disabled:opacity-40 transition-colors cursor-pointer"
-                title="Refresh AI Insights"
+                className="p-1 text-[#5F6368] hover:text-[#1A73E8] dark:hover:text-zinc-300 rounded hover:bg-[#F1F3F4] dark:hover:bg-zinc-900 disabled:opacity-40 transition-colors cursor-pointer border-none bg-transparent"
+                title="Refresh Streako Insights"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${aiLoading ? "animate-spin text-[#4285F4]" : ""}`} />
               </button>
@@ -843,9 +893,9 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
               ) : aiCoach ? (
                 <div className="space-y-4">
                   {/* Guideline banner */}
-                  <div className="p-3 bg-blue-50/50 border border-blue-100/50 dark:bg-blue-950/20 dark:border-blue-900/30 rounded-xl text-[11px] text-[#4285F4] font-bold flex items-center gap-1.5">
+                  <div className="p-3.5 bg-[#4285F4]/5 rounded-xl text-[11px] text-[#4285F4] font-bold flex items-center gap-1.5">
                     <Zap className="w-3.5 h-3.5 fill-[#4285F4] animate-pulse" />
-                    <span>{aiCoach.guideline}</span>
+                    <span>{aiCoach.guideline.replace(/\*\*?/g, "")}</span>
                   </div>
 
                   {/* Highlights Bullet-points */}
@@ -858,7 +908,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
                         {aiCoach.highlights.map((bullet, idx) => (
                           <li key={idx} className="flex gap-2 items-start text-xs font-semibold text-[#3C4043] dark:text-zinc-300">
                             <span className="text-[#34A853] font-bold select-none">•</span>
-                            <span className="leading-tight">{bullet}</span>
+                            <span className="leading-tight">{bullet.replace(/\*\*?/g, "")}</span>
                           </li>
                         ))}
                       </ul>
@@ -866,20 +916,20 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
                   )}
 
                   {/* Recommendation narrative */}
-                  <div className="pt-2 border-t border-[#F1F3F4] dark:border-zinc-900 text-[11px] leading-relaxed font-sans text-[#5F6368] dark:text-zinc-400 markdown-body">
-                    <ReactMarkdown>{aiCoach.recommendations}</ReactMarkdown>
+                  <div className="pt-2 text-[11px] leading-relaxed font-sans text-[#5F6368] dark:text-zinc-400 whitespace-pre-wrap">
+                    {aiCoach.recommendations.replace(/\*\*?/g, "")}
                   </div>
                 </div>
               ) : (
                 <div className="text-center py-10 text-gray-400">
-                  <p>No coaching reports loaded. Click refresh to query AI Coach.</p>
+                  <p>No coaching reports loaded. Click refresh to query Streako.</p>
                 </div>
               )}
             </div>
 
             {/* Bottom info banner */}
-            <div className="text-[9px] text-[#5F6368] dark:text-zinc-500 italic pt-2 border-t border-[#F1F3F4] dark:border-zinc-900 flex items-center gap-1 font-medium">
-              <span>* AI Coach recommendations are custom generated based on your real activity logs.</span>
+            <div className="text-[9px] text-[#5F6368] dark:text-zinc-500 italic pt-2 flex items-center gap-1 font-medium">
+              <span>* Streako recommendations are custom generated based on your real activity logs.</span>
             </div>
           </Card>
         </div>

@@ -51,3 +51,30 @@ export interface Category {
   isRoutine: boolean;
   isPredefined?: boolean;
 }
+
+export interface Goal {
+  id: string;
+  title: string;
+  platform: 'LeetCode' | 'GFG' | 'TUF A2Z Sheet' | 'GitHub' | 'YouTube' | 'Udemy' | 'Coursera' | 'Codeforces' | 'Other';
+  targetValue?: number;
+  currentValue?: number;
+  metricUnit?: string;
+  status: 'active' | 'completed';
+  createdAt: number;
+}
+
+export interface RoadmapMilestone {
+  id: string;
+  title: string;
+  description: string;
+  status: 'pending' | 'completed';
+  associatedPlatform?: string;
+  order: number;
+}
+
+export interface ChatMessage {
+  id: string;
+  sender: 'user' | 'coach';
+  text: string;
+  timestamp: number;
+}

@@ -21,6 +21,8 @@ interface SettingsModalProps {
   handleImportJSON: (jsonData: string) => boolean;
   reloadTodayRecord: () => void;
   id: string;
+  userName?: string;
+  setUserName?: (name: string) => void;
 }
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({
@@ -32,6 +34,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   handleImportJSON,
   reloadTodayRecord,
   id,
+  userName,
+  setUserName,
 }) => {
   const [resetConfirm, setResetConfirm] = React.useState(false);
   const [deleteConfirm, setDeleteConfirm] = React.useState(false);
@@ -39,6 +43,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     success?: boolean;
     error?: string;
   } | null>(null);
+  
+  const [localName, setLocalName] = React.useState(userName || "");
+
+  React.useEffect(() => {
+    if (userName) {
+      setLocalName(userName);
+    }
+  }, [userName]);
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -125,6 +137,28 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     <>
       <Modal id={id} isOpen={isOpen} onClose={onClose} title="Preferences & Tools" size="md">
         <div className="space-y-6 pt-2">
+          
+          {/* User Profile Name block */}
+          {userName !== undefined && setUserName !== undefined && (
+            <div className="space-y-2">
+              <h4 className="text-xs font-bold text-[#5F6368] dark:text-zinc-500 uppercase tracking-widest">
+                Profile Name
+              </h4>
+              <input
+                type="text"
+                maxLength={30}
+                value={localName}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setLocalName(val);
+                  localStorage.setItem("grindstreaks_user_name_v1", val);
+                  setUserName(val);
+                }}
+                placeholder="Enter your name..."
+                className="w-full px-3.5 py-2.5 text-xs bg-white dark:bg-zinc-950 border border-[#E0E3E7] dark:border-zinc-900 rounded-[12px] shadow-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 dark:text-white"
+              />
+            </div>
+          )}
           
           {/* Theme Settings block */}
           <div className="space-y-3">

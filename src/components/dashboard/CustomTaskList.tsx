@@ -2,6 +2,7 @@ import * as React from "react";
 import { Card } from "../ui/card";
 import { Task, DayRecord } from "../../types";
 import { Play, Sparkles, Moon, Sun, ArrowRight, CheckCircle, ShieldCheck } from "lucide-react";
+import { AICoachChatbox } from "./AICoachChatbox";
 
 interface CustomTaskListProps {
   todayRecord: DayRecord;
@@ -27,25 +28,25 @@ const QUICK_TEMPLATES: TemplateItem[] = [
   },
   {
     name: "Web Crafting & Code",
-    tag: "Web Dev",
+    tag: "Web",
     desc: "Build APIs, design features, or fix layout bugs.",
     color: "from-blue-500/20 to-indigo-500/10 border-blue-500/20 text-blue-700 dark:text-blue-300",
   },
   {
+    name: "YouTube Learning Sprints",
+    tag: "YouTube",
+    desc: "Watch tech playlists, system design breakdowns, or academic video courses.",
+    color: "from-amber-500/20 to-orange-500/10 border-amber-500/20 text-amber-700 dark:text-amber-300",
+  },
+  {
     name: "CAT Preparation Sprint",
-    tag: "CAT Prep",
+    tag: "CAT",
     desc: "Solve a mock paper or practice quantitative ability.",
     color: "from-rose-500/20 to-orange-500/10 border-rose-500/20 text-rose-700 dark:text-rose-300",
   },
   {
-    name: "AI & Certifications Research",
-    tag: "Certifications & AI",
-    desc: "Read research papers or complete cloud modules.",
-    color: "from-purple-500/20 to-pink-500/10 border-purple-500/20 text-purple-700 dark:text-purple-300",
-  },
-  {
-    name: "Routine, Rest & Meal Break",
-    tag: "Routines & Rest",
+    name: "Other Tasks & Routines",
+    tag: "Other",
     desc: "Recharge, take a walk, eat, or stretch.",
     color: "from-zinc-500/20 to-slate-500/10 border-zinc-500/20 text-zinc-700 dark:text-zinc-300",
   },
@@ -97,7 +98,7 @@ export const CustomTaskList: React.FC<CustomTaskListProps> = ({
       </div>
 
       {/* 1. Day Control Widget */}
-      <Card className="p-5 border border-[#E0E3E7] dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-3xl shadow-sm relative overflow-hidden">
+      <Card className="p-5 bg-white dark:bg-zinc-900 rounded-2xl relative overflow-hidden">
         <div className="space-y-4">
           <div className="flex justify-between items-start">
             <div>
@@ -122,7 +123,7 @@ export const CustomTaskList: React.FC<CustomTaskListProps> = ({
               </p>
 
               {showConfirmWrapUp ? (
-                <div className="p-3.5 bg-amber-50 dark:bg-amber-950/25 rounded-2xl border border-amber-200/50 space-y-3">
+                <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-2xl space-y-3">
                   <div className="space-y-1">
                     <h5 className="text-xs font-bold text-amber-800 dark:text-amber-300">
                       Confirm Wrap Up
@@ -159,7 +160,7 @@ export const CustomTaskList: React.FC<CustomTaskListProps> = ({
             </>
           ) : (
             <div className="space-y-4">
-              <div className="p-3.5 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/50 rounded-2xl flex gap-3 items-start">
+              <div className="p-4 bg-emerald-50 dark:bg-emerald-950/20 rounded-2xl flex gap-3 items-start">
                 <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
                   <h5 className="text-xs font-bold text-emerald-800 dark:text-emerald-300">
@@ -183,47 +184,8 @@ export const CustomTaskList: React.FC<CustomTaskListProps> = ({
         </div>
       </Card>
 
-      {/* 2. Quick Templates */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-1.5">
-          <Sparkles className="w-4 h-4 text-[#4285F4] animate-pulse" />
-          <h4 className="font-sans font-semibold text-[#3C4043] dark:text-zinc-100 text-sm">
-            Quick Spark templates
-          </h4>
-        </div>
-
-        <div className="space-y-3">
-          {QUICK_TEMPLATES.map((tpl) => (
-            <button
-              key={tpl.name}
-              disabled={todayRecord.isDayEnded}
-              onClick={() => handleSpawnTemplate(tpl)}
-              className={`w-full text-left p-3.5 rounded-2xl border bg-gradient-to-r transition-all duration-200 ${tpl.color} ${
-                todayRecord.isDayEnded
-                  ? "opacity-40 cursor-not-allowed"
-                  : "hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0 cursor-pointer"
-              } flex justify-between items-center`}
-            >
-              <div className="space-y-1 pr-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-extrabold tracking-wider uppercase bg-white/60 dark:bg-black/30 px-2 py-0.5 rounded-md">
-                    {tpl.tag}
-                  </span>
-                </div>
-                <h5 className="text-xs font-extrabold tracking-tight font-sans">
-                  {tpl.name}
-                </h5>
-                <p className="text-[11px] opacity-75 leading-normal">
-                  {tpl.desc}
-                </p>
-              </div>
-              <div className="p-1.5 rounded-lg bg-white/70 dark:bg-black/30 flex-shrink-0">
-                <Play className="w-3.5 h-3.5 fill-current" />
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* 2. AI Coach & Roadmap Chatbox */}
+      <AICoachChatbox todayRecord={todayRecord} addDynamicTask={addDynamicTask} />
     </div>
   );
 };

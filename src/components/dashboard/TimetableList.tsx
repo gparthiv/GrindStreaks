@@ -39,7 +39,7 @@ export const TimetableList: React.FC<TimetableListProps> = ({
   id,
   addDynamicTask,
   deleteCustomTask,
-  savedTags = ['DSA', 'Web Dev', 'CAT Prep', 'Certifications & AI', 'Routines & Rest'],
+  savedTags = ['DSA', 'Web', 'YouTube', 'CAT', 'Other'],
 }) => {
   const [conflictModal, setConflictModal] = React.useState<{
     isOpen: boolean;
@@ -117,12 +117,12 @@ export const TimetableList: React.FC<TimetableListProps> = ({
 
   const getTagColor = (tag: string) => {
     const t = tag.toLowerCase();
-    if (t.includes("dsa")) return "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/20 dark:text-emerald-400 border-emerald-200/50";
-    if (t.includes("web") || t.includes("dev")) return "bg-blue-50 text-blue-700 dark:bg-blue-950/20 dark:text-blue-400 border-blue-200/50";
-    if (t.includes("cat") || t.includes("prep")) return "bg-rose-50 text-rose-700 dark:bg-rose-950/20 dark:text-rose-400 border-rose-200/50";
-    if (t.includes("cert") || t.includes("ai")) return "bg-purple-50 text-purple-700 dark:bg-purple-950/20 dark:text-purple-400 border-purple-200/50";
-    if (t.includes("routine") || t.includes("rest") || t.includes("sleep")) return "bg-slate-50 text-slate-600 dark:bg-zinc-800 dark:text-zinc-400 border-zinc-700/50";
-    return "bg-amber-50 text-amber-700 dark:bg-amber-950/20 dark:text-amber-400 border-amber-200/50";
+    if (t.includes("dsa")) return "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/20 dark:text-emerald-400";
+    if (t.includes("web") || t.includes("dev")) return "bg-blue-50 text-blue-700 dark:bg-blue-950/20 dark:text-blue-400";
+    if (t.includes("cat") || t.includes("prep")) return "bg-rose-50 text-rose-700 dark:bg-rose-950/20 dark:text-rose-400";
+    if (t.includes("cert") || t.includes("ai")) return "bg-purple-50 text-purple-700 dark:bg-purple-950/20 dark:text-purple-400";
+    if (t.includes("routine") || t.includes("rest") || t.includes("sleep")) return "bg-slate-50 text-slate-600 dark:bg-zinc-800 dark:text-zinc-400";
+    return "bg-amber-50 text-amber-700 dark:bg-amber-950/20 dark:text-amber-400";
   };
 
   return (
@@ -147,7 +147,7 @@ export const TimetableList: React.FC<TimetableListProps> = ({
 
       {/* Inline Quick Add Activity Form */}
       {showAddForm && (
-        <Card className="p-4 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800 rounded-2xl shadow-md space-y-3">
+        <Card className="p-5 bg-white dark:bg-zinc-900 rounded-2xl shadow-xl space-y-4">
           <form onSubmit={handleSubmitNewTask} className="space-y-3">
             <div>
               <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">
@@ -225,7 +225,7 @@ export const TimetableList: React.FC<TimetableListProps> = ({
 
       {/* Dynamic Tasks Timeline */}
       {tasks.length === 0 ? (
-        <Card className="p-8 text-center bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800 rounded-3xl flex flex-col items-center gap-3">
+        <Card className="p-8 text-center bg-white dark:bg-zinc-900 rounded-2xl flex flex-col items-center gap-3 shadow-none">
           <Clock className="w-10 h-10 text-gray-300 dark:text-zinc-700 animate-pulse" />
           <div className="space-y-1">
             <h4 className="font-semibold text-gray-800 dark:text-zinc-200 text-sm">No active tasks</h4>
@@ -245,13 +245,13 @@ export const TimetableList: React.FC<TimetableListProps> = ({
               <Card
                 key={task.id}
                 id={`task-card-${task.id}`}
-                className={`p-4 transition-all duration-200 bg-white dark:bg-zinc-900 border ${
+                className={`p-5 transition-all duration-300 rounded-2xl ${
                   isCompleted
-                    ? "border-[#E0E3E7] dark:border-zinc-850 opacity-50"
+                    ? "bg-zinc-50/70 dark:bg-zinc-950/20 opacity-65 shadow-none"
                     : isRunning
-                    ? "border-[#4285F4] ring-4 ring-[#4285F4]/5 shadow-md"
-                    : "border-[#E0E3E7] dark:border-zinc-800 shadow-sm"
-                } rounded-2xl`}
+                    ? "bg-white dark:bg-zinc-900 ring-4 ring-[#4285F4]/10 shadow-[0_12px_40px_rgba(66,133,244,0.06)]"
+                    : "bg-zinc-50/50 dark:bg-zinc-950/40 hover:bg-zinc-50 dark:hover:bg-zinc-950/60 shadow-none"
+                }`}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   {/* Left: Info */}
@@ -279,7 +279,7 @@ export const TimetableList: React.FC<TimetableListProps> = ({
                   </div>
 
                   {/* Right: Timer and Controls */}
-                  <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-none border-[#F1F3F4] dark:border-zinc-800/60 pt-2 sm:pt-0">
+                  <div className="flex items-center justify-between sm:justify-end gap-4 pt-2 sm:pt-0">
                     {/* Live Tracker */}
                     <div className="flex items-center gap-1.5 font-sans text-xs font-medium text-[#5F6368] dark:text-zinc-400">
                       <Clock className={`w-3.5 h-3.5 ${isRunning ? "text-[#4285F4] animate-spin" : ""}`} />
@@ -336,7 +336,7 @@ export const TimetableList: React.FC<TimetableListProps> = ({
                       {(isCompleted || liveDuration > 0) && (
                         <button
                           onClick={() => resetTask(task.id)}
-                          className="p-1.5 rounded-lg border border-[#E0E3E7] text-[#5F6368] hover:bg-[#F1F3F4] dark:border-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-800 bg-transparent transition-all cursor-pointer"
+                          className="p-2 rounded-xl text-[#5F6368] hover:bg-black/5 dark:text-zinc-400 dark:hover:bg-white/5 bg-transparent border-none transition-all cursor-pointer"
                           title="Reset progress"
                         >
                           <RotateCcw className="w-3.5 h-3.5" />

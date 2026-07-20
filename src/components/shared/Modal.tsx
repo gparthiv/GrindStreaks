@@ -60,7 +60,7 @@ export const Modal: React.FC<ModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className={`relative z-10 w-full ${sizeClasses[size]} max-h-[calc(100vh-3rem)] sm:max-h-[calc(100vh-4rem)] flex flex-col rounded-[16px] border border-gray-100 bg-white p-6 shadow-xl dark:border-zinc-800 dark:bg-zinc-950`}
+            className={`relative z-10 w-full ${sizeClasses[size]} max-h-[calc(100vh-3rem)] sm:max-h-[calc(100vh-4rem)] flex flex-col rounded-2xl bg-white p-6 shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:bg-zinc-950 dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)]`}
           >
             {/* Header */}
             <div className="flex items-center justify-between mb-4 flex-shrink-0">
