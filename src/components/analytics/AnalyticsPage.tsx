@@ -473,11 +473,11 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
         </div>
       </div>
 
-      {/* Main Grid section */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* Main Stack section - stacked vertically for all screens */}
+      <div className="space-y-6">
         
         {/* Left column: Quick Stats Bento Box & Charts */}
-        <div className="lg:col-span-8 space-y-6">
+        <div className="space-y-6">
           
           {/* Quick Metrics Bento Row */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
@@ -681,7 +681,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
         </div>
 
         {/* Right column: Productivity score & AI Coach guidance */}
-        <div className="lg:col-span-4 space-y-6">
+        <div className="space-y-6">
           
           {/* Productivity score gauge */}
           <Card className="p-5 bg-white dark:bg-zinc-900 border border-[#E0E3E7] dark:border-zinc-800 relative overflow-hidden flex flex-col justify-between items-center text-center rounded-[16px] shadow-sm">

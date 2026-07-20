@@ -367,10 +367,10 @@ export default function App() {
               todayRecord={todayRecord}
             />
 
-            {/* Row 3: Timetable & Custom Task Cards Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-              {/* Daily timetable list (60% width on LG+) */}
-              <div className="lg:col-span-7">
+            {/* Row 3: Timetable & Custom Task Cards Layout - stacked vertically for all screens */}
+            <div className="space-y-6">
+              {/* Daily timetable list */}
+              <div>
                 <TimetableList
                   id="timetable-section"
                   tasks={todayRecord.tasks}
@@ -386,8 +386,8 @@ export default function App() {
                 />
               </div>
 
-              {/* Custom habits/study items (40% width on LG+) */}
-              <div className="lg:col-span-5">
+              {/* Custom habits/study items */}
+              <div>
                 <CustomTaskList
                   id="custom-tasks-section"
                   todayRecord={todayRecord}
