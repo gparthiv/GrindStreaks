@@ -15,7 +15,7 @@ interface LandingPageProps {
 export const LandingPage: React.FC<LandingPageProps> = ({
   onComplete,
   id = "landing-page",
-  darkMode = false,
+  darkMode = true,
   toggleDarkMode
 }) => {
   const [name, setName] = React.useState("");

@@ -1,6 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
+    <script>
+      try {
+        const stored = localStorage.getItem('grindstreaks_settings_v1');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed.darkMode === false) {
+            document.documentElement.classList.remove('dark');
+          }
+        }
+      } catch (e) {}
+    </script>
     <script>
       // Redefine window.fetch to provide both getter and setter.
       // This prevents "Uncaught TypeError: Cannot set property fetch of #<Window> which has only a getter"

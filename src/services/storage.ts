@@ -260,7 +260,7 @@ export const loadSettings = (): Settings => {
     }
   }
   const defaultSettings: Settings = {
-    darkMode: false,
+    darkMode: true,
     version: '1.0',
     streak: 0,
     maxStreak: 0,
