@@ -12,8 +12,8 @@ interface LandingPageProps {
   toggleDarkMode?: (enabled: boolean) => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({ 
-  onComplete, 
+export const LandingPage: React.FC<LandingPageProps> = ({
+  onComplete,
   id = "landing-page",
   darkMode = false,
   toggleDarkMode
@@ -48,11 +48,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   return (
     <div
       id={id}
-      className="min-h-screen w-full bg-white dark:bg-zinc-950 text-gray-800 dark:text-zinc-100 relative overflow-hidden flex flex-col font-sans transition-colors duration-300 pb-20"
+      className="min-h-screen w-full bg-white dark:bg-zinc-950 text-gray-800 dark:text-zinc-100 relative overflow-hidden flex flex-col font-sans transition-colors duration-300"
     >
       {/* Centered radial gradient at the bottom of the viewport */}
-      <div 
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none blur-[120px] opacity-60 dark:opacity-40 transition-opacity" 
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none blur-[120px] opacity-60 dark:opacity-40 transition-opacity"
         style={{
           background: 'radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0) 70%)'
         }}
@@ -62,40 +62,37 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
       {/* Centered Floating Pill Navbar */}
-      <nav 
-        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between transition-all duration-300 rounded-full border border-zinc-200/50 dark:border-zinc-800/40 backdrop-blur-md shadow-lg py-2.5 px-5 bg-white/75 dark:bg-zinc-950/75 ${
-          scrolled 
-            ? "w-[240px] md:w-[260px] justify-center gap-3" 
+      <nav
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between transition-all duration-300 rounded-full border border-zinc-200/50 dark:border-zinc-800/40 backdrop-blur-md shadow-lg py-2.5 px-5 bg-white/75 dark:bg-zinc-950/75 ${scrolled
+            ? "w-[240px] md:w-[260px] justify-center gap-3"
             : "w-[calc(100%-2rem)] max-w-md md:max-w-lg"
-        }`}
+          }`}
       >
         <div className="flex items-center gap-2">
-          <img 
-            src={logoPng} 
-            alt="GrindStreaks Logo" 
-            className="w-7 h-7 rounded-lg object-contain" 
-            referrerPolicy="no-referrer" 
+          <img
+            src={logoPng}
+            alt="GrindStreaks Logo"
+            className="w-7 h-7 rounded-lg object-contain"
+            referrerPolicy="no-referrer"
           />
           {/* Brand name collapses when at top, and expands on scroll past hero title */}
-          <span className={`font-sans font-bold tracking-tight text-sm text-gray-900 dark:text-white transition-all duration-300 ${
-            scrolled ? "max-w-[150px] opacity-100" : "max-w-0 opacity-0 pointer-events-none overflow-hidden"
-          }`}>
+          <span className={`font-sans font-bold tracking-tight text-sm text-gray-900 dark:text-white transition-all duration-300 ${scrolled ? "max-w-[150px] opacity-100" : "max-w-0 opacity-0 pointer-events-none overflow-hidden"
+            }`}>
             GrindStreaks
           </span>
         </div>
 
         {/* Dynamic navigation and action links shown only when at the top */}
-        <div className={`flex items-center gap-4 transition-all duration-200 ${
-          scrolled ? "opacity-0 max-w-0 pointer-events-none overflow-hidden" : "opacity-100 max-w-[300px]"
-        }`}>
-          <button 
+        <div className={`flex items-center gap-4 transition-all duration-200 ${scrolled ? "opacity-0 max-w-0 pointer-events-none overflow-hidden" : "opacity-100 max-w-[300px]"
+          }`}>
+          <button
             onClick={() => document.getElementById('core-capabilities')?.scrollIntoView({ behavior: 'smooth' })}
             className="text-xs font-semibold text-gray-500 hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-400 bg-transparent border-none cursor-pointer transition-colors"
           >
             Capabilities
           </button>
-          
-          <button 
+
+          <button
             onClick={() => setIsAskingName(true)}
             className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:opacity-80 bg-transparent border-none cursor-pointer transition-opacity"
           >
@@ -123,7 +120,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
       {/* Main Container */}
       <main className="flex-1 flex flex-col items-center justify-center max-w-7xl w-full mx-auto px-6 pt-24 pb-12 z-10">
-        
+
         {!isAskingName ? (
           /* Main Hero Section */
           <div className="text-center max-w-3xl space-y-8 py-12 animate-fade-in">
@@ -134,7 +131,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </span>
               </h1>
               <p className="text-base md:text-lg text-gray-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
-                Architect your engineering momentum. An interactive dashboard designed to automate your developer tracking and supercharge your consistency.
+                Cut the noise.
+                <br />
+                Grind toward success with Streako and AI automation.
               </p>
             </div>
 
@@ -154,7 +153,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div className="mx-auto w-12 h-12 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500 rounded-full flex items-center justify-center shadow-inner">
               <Award className="w-6 h-6 animate-pulse" />
             </div>
-            
+
             <div className="space-y-2">
               <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
                 Welcome to the Arena
@@ -219,7 +218,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
+
             {/* Column 1: Zero Input Tracking */}
             <div className="group p-6 bg-white dark:bg-zinc-900 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col space-y-4">
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold">
@@ -302,7 +301,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
               <div className="space-y-1.5">
                 <h4 className="font-bold text-sm text-gray-900 dark:text-white">
-                  Meet Your Mascot Coach
+                  Meet Streako, your AI Coach
                 </h4>
                 <p className="text-xs text-gray-500 dark:text-zinc-400 leading-relaxed font-medium">
                   Meet Streako, your friendly mascot coach, peeping through to celebrate your milestones, generate custom roadmaps, and keep you on track.
@@ -311,11 +310,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
               {/* Streako Mascot Image */}
               <div className="p-3 bg-zinc-50 dark:bg-zinc-950/60 rounded-xl flex items-center justify-center mt-auto relative overflow-hidden h-36">
-                <img 
-                  src={mascotPng} 
-                  alt="Streako Mascot Coach" 
-                  className="h-full max-h-full object-contain select-none" 
-                  referrerPolicy="no-referrer" 
+                <img
+                  src={mascotPng}
+                  alt="Streako Mascot Coach"
+                  className="h-full max-h-full object-contain select-none"
+                  referrerPolicy="no-referrer"
                 />
               </div>
             </div>
@@ -358,16 +357,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   <rect x="132" y="10" width="12" height="75" rx="2" fill="#10B981" fillOpacity="0.75" />
 
                   {/* Glowing Rising line graph */}
-                  <path 
-                    d="M 18 70 L 42 55 L 66 45 L 90 30 L 114 20 L 138 10" 
-                    fill="none" 
-                    stroke="#10B981" 
-                    strokeWidth="3" 
+                  <path
+                    d="M 18 70 L 42 55 L 66 45 L 90 30 L 114 20 L 138 10"
+                    fill="none"
+                    stroke="#10B981"
+                    strokeWidth="3"
                     strokeLinecap="round"
-                    strokeLinejoin="round" 
+                    strokeLinejoin="round"
                     className="drop-shadow-[0_2px_4px_rgba(16,185,129,0.5)]"
                   />
-                  
+
                   {/* Pulsing focal node at peak */}
                   <circle cx="138" cy="10" r="4" fill="#34D399" />
                   <circle cx="138" cy="10" r="8" fill="none" stroke="#34D399" strokeWidth="1" className="animate-ping" style={{ animationDuration: '2s' }} />
@@ -385,7 +384,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* Footer */}
       <footer className="w-full max-w-7xl mx-auto py-12 px-6 mt-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 dark:text-zinc-500 z-10">
         <div>
-          <span>© {new Date().getFullYear()} GrindStreaks. Architectural Consistency.</span>
+          <span>© {new Date().getFullYear()} GrindStreaks .</span>
         </div>
         <div className="flex items-center gap-1">
           <span>Made by </span>

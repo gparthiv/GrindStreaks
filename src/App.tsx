@@ -191,7 +191,7 @@ export default function App() {
       />
 
       {/* Main View Content */}
-      <main className="px-4 md:px-8 py-6">
+      <main className="px-4 md:px-8 pt-28 pb-6">
         {/* Morning Setup Overlay / Popup */}
         {morningStep !== "none" && !todayRecord.isDayStarted && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-md animate-fade-in">

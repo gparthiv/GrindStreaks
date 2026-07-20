@@ -1,98 +1,101 @@
-# Consistency Pro - Minimal Habit & Study System
+# GrindStreaks
 
-Consistency Pro is a lightweight, distraction-free desktop-focused study and habit tracking system designed after Google's minimal design aesthetic. Built to encourage long-term daily consistency rather than artificial gamification, it operates entirely offline, persisting data securely in your browser's local storage with zero backend dependencies, while offering powerful server-side AI Coach integration for custom recommendations.
-
----
+**GrindStreaks** is a high-performance visual streak, habit, and study timetable tracker. Designed to cut the noise and help you grind toward success, it features a distraction-free aesthetic, powerful analytics, and an AI Coach named Streako to keep you accountable.
 
 ## Key Features
 
-- **Google-Inspired Minimal UI**: Polished, distraction-free aesthetic with subtle micro-animations (150ms transitions), utilizing elegant IBM Plex Sans typography and Google's exact brand color-codings.
-- **Resilient Multi-Session Timer Engine**: A stateful tracking system immune to browser reloads, network drops, or tab closures. It calculates exact active study times and prevents active session conflicts.
-- **GitHub-Style Consistency Heatmap**: A navigable contribution grid visualizing completion history. Hover to see completed task summaries, active duration, and precise daily percentages.
-- **Flexible Custom Tasks (Full CRUD)**: Add, search, rename, and delete custom habits. Features an instant slide-in Undo deletion bar for seamless usability.
-- **AI Consistency Coach**: Integrates securely with Google's Gemini 3.5 Flash model server-side to compile study highlights, assess category balances, and issue actionable data-driven coaching plans.
-- **Rich Analytics & Scoring**: Recharts visualizations showcasing category time distributions, weekly trends, monthly breakdowns, and a dynamic 100-point Productivity Score.
-- **Streak Freeze Mechanism**: Streak calculations reward actual commitment: completes increment streaks, missing exactly 1 task freezes the streak, and missing more than 1 resets it.
-- **Complete Data Portability**: Standard CSV exports for personal logging, beautifully styled PDF reports using standard browser print-rendering, and single-click JSON Backup Import/Export.
-- **Fluid Dark & Light Modes**: Seamless theme overrides tailored to reduce eye fatigue during late-night CAT/Dev sprints.
+- **Distraction-Free Dashboard**: A clean, modern UI designed to keep you focused on your daily tasks without unnecessary gamification or clutter.
+- **Resilient Offline-First Architecture**: Built to work completely offline, persisting your progress securely in your browser's local storage.
+- **Consistency Heatmap**: Visualize your history with a GitHub-style contribution graph. Instantly see your completed tasks, active durations, and daily performance metrics.
+- **AI Coach "Streako"**: Integrated with Google's Gemini API (server-side) to analyze your study patterns, provide actionable insights, and generate custom productivity roadmaps.
+- **Advanced Streak Tracking**: True consistency tracking with smart logic that accounts for missed days without unfairly penalizing your momentum.
+- **Custom Habit Management**: Full CRUD capabilities for creating and tracking custom habits and study sessions that matter to you.
+- **Seamless Data Portability**: Export your history as CSV, generate beautiful PDF reports, and seamlessly import/export JSON backups.
+- **Dark Mode Optimization**: A sleek dark mode designed to reduce eye strain during late-night coding or study sessions.
 
----
+## Tech Stack
+
+- **Frontend**: React 18+, TypeScript, Vite, Tailwind CSS v4
+- **Backend**: Express (Node.js) to securely proxy AI requests
+- **Animations**: Native CSS Transitions and Keyframes
+- **Icons**: Lucide React
+- **Charts**: Recharts
 
 ## Project Structure
 
 ```text
 src/
 ├── components/
-│   ├── analytics/        # Recharts monthly stats, AI Coach, metrics
-│   ├── dashboard/        # Hero card, GitHub heatmap, timetable, custom tasks
-│   ├── layout/           # Sticky Header with date and dynamic live clock
+│   ├── analytics/        # Analytics, charts, and AI Coach insights
+│   ├── dashboard/        # Main dashboard, heatmap, hero stats, custom tasks
+│   ├── layout/           # Sticky Header, navigation
 │   ├── settings/         # Backup tools, theme toggle, and reset panels
-│   ├── shared/           # Animated Modals and custom canvas Confetti
-│   └── ui/               # Tailored card and progress primitives
+│   └── shared/           # Animated Modals and generic UI components
 ├── hooks/
-│   └── useTaskEngine.ts  # Main task states, CRUD pipelines, timer syncs
+│   └── useTaskEngine.ts  # Main task engine, CRUD operations, timer logic
 ├── services/
-│   ├── ai.ts             # Cache-friendly client fetcher for AI Coach
-│   ├── export.ts         # Portable CSV sheets and window print layouts
-│   └── storage.ts        # Resilient local storage schema, daily resets, streaks
+│   ├── ai.ts             # Client service to fetch AI Coach insights
+│   ├── export.ts         # CSV and PDF export utilities
+│   └── storage.ts        # Resilient local storage and daily reset logic
 ├── types/
-│   └── index.ts          # Central TypeScript interfaces and data models
-├── utils/
-│   └── constants.ts      # Fixed daily timetable constant variables
-├── App.tsx               # Primary layout router and keyboard shortcut monitors
-├── index.css             # IBM Plex Sans imports, Tailwind v4 theme, printing overrides
+│   └── index.ts          # Central TypeScript interfaces
+├── App.tsx               # Primary layout router and state manager
+├── index.css             # Tailwind config and global styles
 └── main.tsx              # App initialization entrypoint
 ```
 
----
-
-## Installation & Development
+## Local Development
 
 ### Prerequisites
 - Node.js (v18+)
 - npm
 
 ### 1. Install Dependencies
-Clone the repository and install all required modules:
+
+Clone the repository and install the dependencies:
+
 ```bash
 npm install
 ```
 
-### 2. Configure Environment Secrets
-Create a `.env` file in the root directory (based on `.env.example`) and add your Gemini API Key:
+### 2. Environment Variables
+
+Create a `.env` file in the root directory (based on `.env.example`) and add your Gemini API Key for the Streako AI Coach feature:
+
 ```env
 GEMINI_API_KEY="your_api_key_here"
 ```
 
 ### 3. Run the Development Server
-Launch the full-stack server running Express + Vite:
+
+Launch the full-stack server (Express + Vite):
+
 ```bash
 npm run dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
----
+## Deployment
 
-## Deployment Configuration
-
-Consistency Pro's front-end is fully compatible with static hosts (like GitHub Pages, Netlify, or Vercel) as its core features run completely offline in the browser. 
+GrindStreaks is built with a custom Express backend to securely handle Gemini API calls while serving a compiled React frontend.
 
 ### 1. Build for Production
-Run the production compiler:
+
+Compile the React SPA and the Express backend:
+
 ```bash
 npm run build
 ```
-This command compiles the React SPA into static assets inside `dist/` and bundles the Express API backend into a CJS server file under `dist/server.cjs` via `esbuild`.
 
-### 2. Static Deploy (e.g., GitHub Pages)
-If deploying purely as a client-side offline app:
-1. Update `base` in your `vite.config.ts` to `"/your-repository-name/"`.
-2. Run `npm run build`.
-3. Push the compiled static files from the `dist` folder to your `gh-pages` branch.
+This compiles the static assets into `dist/` and bundles the Express API backend into a CJS server file under `dist/server.cjs`.
 
-### 3. Full-Stack Deploy (e.g., Cloud Run)
-Launch the compiled full-stack Express server in containerized nodes:
+### 2. Start the Production Server
+
+Launch the compiled full-stack server:
+
 ```bash
 npm run start
 ```
-The server automatically listens on port `3000` and proxies the Gemini AI endpoint safely.
+
+The server listens on port `3000` (or your configured `$PORT`) and serves both the API endpoints and the frontend static files.
