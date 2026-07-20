@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Settings as SettingsIcon, BarChart3, LayoutDashboard, Clock, Calendar } from "lucide-react";
+// @ts-ignore
+import logoPng from "../../assets/logo.png";
 
 interface HeaderProps {
   currentView: "dashboard" | "analytics";
@@ -56,10 +58,13 @@ export const Header: React.FC<HeaderProps> = ({
     >
       {/* Brand Logo and Title */}
       <div className="flex items-center gap-3">
-        <div className="flex items-center justify-center bg-emerald-500/10 dark:bg-emerald-500/20 p-1.5 rounded-xl transition-all duration-300" style={{ height: "40px", width: "40px" }}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130" className="h-full w-auto text-emerald-600 dark:text-emerald-400 fill-current animate-pulse">
-            <path d="M50,115 C58,115 69,110 75,100 C86,83 91,63 85,44 C83,37 79,31 74,26 C73,25 71,26 71,27 C75,36 75,46 71,54 C69,58 66,62 62,65 C61,66 59,65 59,64 C59,58 57,51 54,46 C51,40 47,35 44,29 C37,18 39,6 44,-5 C44,-6 43,-7 42,-7 C33,6 27,21 27,37 C27,50 30,62 36,73 C37,75 35,77 33,76 C28,72 25,67 23,61 C22,58 20,60 20,60 C18,69 19,79 24,87 C30,98 38,107 48,112 C49,113 50,114 50,115 Z" />
-          </svg>
+        <div className="flex items-center justify-center" style={{ height: "40px" }}>
+          <img
+            src={logoPng}
+            referrerPolicy="no-referrer"
+            alt="GrindStreaks Logo"
+            className="h-9 md:h-10 w-auto object-contain rounded-full"
+          />
         </div>
         <div className="space-y-0.5">
           <h1 className="text-base font-bold text-[#3C4043] dark:text-zinc-100 tracking-tight font-sans">
