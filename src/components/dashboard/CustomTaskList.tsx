@@ -2,7 +2,6 @@ import * as React from "react";
 import { Card } from "../ui/card";
 import { Task, DayRecord } from "../../types";
 import { Play, Sparkles, Moon, Sun, ArrowRight, CheckCircle, ShieldCheck } from "lucide-react";
-import { AICoachChatbox } from "./AICoachChatbox";
 
 interface CustomTaskListProps {
   todayRecord: DayRecord;
@@ -184,8 +183,6 @@ export const CustomTaskList: React.FC<CustomTaskListProps> = ({
         </div>
       </Card>
 
-      {/* 2. AI Coach & Roadmap Chatbox */}
-      <AICoachChatbox todayRecord={todayRecord} addDynamicTask={addDynamicTask} />
     </div>
   );
 };

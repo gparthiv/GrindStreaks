@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Task, DayRecord, Settings, HistoryData } from '../types';
 import * as storage from '../services/storage';
+import { pushToFirebase, syncWithFirebase } from '../services/sync';
+import { auth } from '../services/firebase';
 
 export const useTaskEngine = () => {
   // Run schema migration to split Certifications and Nap on startup
@@ -36,6 +38,31 @@ export const useTaskEngine = () => {
       setActiveTaskId(runningTask.id);
     }
   }, []);
+
+  // Listen to Auth State and Sync
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const wasPulled = await syncWithFirebase(user.uid);
+        if (wasPulled) {
+          setTodayRecord(storage.loadTodayRecord());
+          setSettings(storage.loadSettings());
+          setHistory(storage.loadHistory());
+        }
+      }
+    });
+    return unsubscribe;
+  }, []);
+
+  // Debounced push to Firebase whenever core data changes
+  useEffect(() => {
+    if (auth.currentUser) {
+      const timeoutId = setTimeout(() => {
+        pushToFirebase(auth.currentUser!.uid);
+      }, 5000); // 5s debounce
+      return () => clearTimeout(timeoutId);
+    }
+  }, [todayRecord, settings, history]);
 
   // Timer loop that updates every second for running tasks
   useEffect(() => {

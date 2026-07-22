@@ -1,9 +1,10 @@
 import * as React from "react";
-import { ArrowRight, Sparkles, CheckCircle, Award, LayoutGrid, Zap, Sun, Moon } from "lucide-react";
+import { ArrowRight, Sparkles, CheckCircle, Award, LayoutGrid, Zap, Sun, Moon, LogIn } from "lucide-react";
 // @ts-ignore
 import logoPng from "../../assets/logo.png";
 // @ts-ignore
 import mascotPng from "../../assets/mascot.png";
+import { useAuth } from "../../hooks/useAuth";
 
 interface LandingPageProps {
   onComplete: (name: string) => void;
@@ -18,10 +19,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   darkMode = true,
   toggleDarkMode
 }) => {
-  const [name, setName] = React.useState("");
-  const [isAskingName, setIsAskingName] = React.useState(false);
-  const [errorMsg, setErrorMsg] = React.useState("");
   const [scrolled, setScrolled] = React.useState(false);
+  const [loadingGoogle, setLoadingGoogle] = React.useState(false);
+  const { signInWithGoogle } = useAuth();
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -35,14 +35,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSubmitName = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!name.trim()) {
-      setErrorMsg("Please enter a valid name or nickname to start the grind!");
-      return;
+  const handleGoogleLogin = async () => {
+    try {
+      setLoadingGoogle(true);
+      const user = await signInWithGoogle();
+      if (user) {
+        const displayName = user.displayName?.split(' ')[0] || "Champion";
+        onComplete(displayName);
+      }
+    } catch (e) {
+      console.error(e);
+      setLoadingGoogle(false);
     }
-    setErrorMsg("");
-    onComplete(name.trim());
   };
 
   return (
@@ -93,10 +97,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </button>
 
           <button
-            onClick={() => setIsAskingName(true)}
-            className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:opacity-80 bg-transparent border-none cursor-pointer transition-opacity"
+            onClick={handleGoogleLogin}
+            disabled={loadingGoogle}
+            className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:opacity-80 disabled:opacity-50 bg-transparent border-none cursor-pointer transition-opacity"
           >
-            Start Grind
+            {loadingGoogle ? "Signing In..." : "Start Grind"}
           </button>
         </div>
 
@@ -121,90 +126,32 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* Main Container */}
       <main className="flex-1 flex flex-col items-center justify-center max-w-7xl w-full mx-auto px-6 pt-24 pb-12 z-10">
 
-        {!isAskingName ? (
-          /* Main Hero Section */
-          <div className="text-center max-w-3xl space-y-8 py-12 animate-fade-in">
-            <div className="space-y-4">
-              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-[1.1]">
-                <span className="bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
-                  GrindStreaks
-                </span>
-              </h1>
-              <p className="text-base md:text-lg text-gray-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
-                Cut the noise.
-                <br />
-                Grind toward success with Streako and AI automation.
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-              <button
-                onClick={() => setIsAskingName(true)}
-                className="group w-full sm:w-auto px-8 py-4 bg-zinc-900 hover:bg-zinc-800 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-zinc-950 rounded-2xl text-sm font-bold shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20 transition-all duration-200 cursor-pointer border-none flex items-center justify-center gap-2"
-              >
-                Let's Grind
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
+        {/* Main Hero Section */}
+        <div className="text-center max-w-3xl space-y-8 py-12 animate-fade-in">
+          <div className="space-y-4">
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-[1.1]">
+              <span className="bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
+                GrindStreaks
+              </span>
+            </h1>
+            <p className="text-base md:text-lg text-gray-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
+              Cut the noise.
+              <br />
+              Grind toward success with Streako and AI automation.
+            </p>
           </div>
-        ) : (
-          /* Name Input Prompt */
-          <div className="w-full max-w-md p-8 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md rounded-3xl shadow-xl space-y-6 text-center transform animate-scale-up">
-            <div className="mx-auto w-12 h-12 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500 rounded-full flex items-center justify-center shadow-inner">
-              <Award className="w-6 h-6 animate-pulse" />
-            </div>
 
-            <div className="space-y-2">
-              <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-                Welcome to the Arena
-              </h2>
-              <p className="text-xs text-gray-500 dark:text-zinc-400 leading-normal px-2">
-                Let's customize your tracking environment. What should Streako and your AI Coach call you?
-              </p>
-            </div>
-
-            <form onSubmit={handleSubmitName} className="space-y-4">
-              <div className="relative">
-                <input
-                  type="text"
-                  maxLength={30}
-                  required
-                  placeholder="Enter your name or alias..."
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    if (errorMsg) setErrorMsg("");
-                  }}
-                  className="w-full px-4 py-3 bg-[#FAFBFC] dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500 dark:focus:border-emerald-400 text-sm rounded-xl focus:outline-none dark:text-white transition-all text-center font-bold"
-                  autoFocus
-                />
-              </div>
-
-              {errorMsg && (
-                <p className="text-xs text-red-500 font-bold bg-red-50 dark:bg-red-950/20 py-2 rounded-lg">
-                  {errorMsg}
-                </p>
-              )}
-
-              <div className="flex gap-3">
-                <button
-                  type="button"
-                  onClick={() => setIsAskingName(false)}
-                  className="flex-1 py-3 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-gray-700 dark:text-zinc-300 rounded-xl text-xs font-bold transition-all border-none cursor-pointer"
-                >
-                  Back
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition-all shadow-md border-none cursor-pointer flex items-center justify-center gap-1.5"
-                >
-                  Enter Arena
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </form>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+            <button
+              onClick={handleGoogleLogin}
+              disabled={loadingGoogle}
+              className="group w-full sm:w-auto px-8 py-4 bg-zinc-900 hover:bg-zinc-800 disabled:bg-zinc-700 dark:bg-emerald-500 dark:hover:bg-emerald-400 dark:disabled:bg-emerald-700 text-white dark:text-zinc-950 rounded-2xl text-sm font-bold shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20 transition-all duration-200 cursor-pointer border-none flex items-center justify-center gap-2"
+            >
+              {loadingGoogle ? "Connecting..." : "Continue with Google"}
+              {!loadingGoogle && <LogIn className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
+            </button>
           </div>
-        )}
+        </div>
 
         {/* Feature Grid Section (On scroll / Below hero) */}
         <div id="core-capabilities" className="mt-16 pt-16 w-full">

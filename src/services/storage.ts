@@ -328,7 +328,7 @@ export const loadTodayRecord = (): DayRecord => {
     studyTime: 0,
     completedCount: 0,
     totalCount: 0,
-    isDayStarted: false,
+    isDayStarted: true,
     isDayEnded: false,
   };
 
@@ -434,7 +434,7 @@ export const checkDailyReset = (): { resetHappened: boolean; yesterdaySummary?: 
     studyTime: 0,
     completedCount: 0,
     totalCount: 0,
-    isDayStarted: false,
+    isDayStarted: true,
     isDayEnded: false,
   };
 

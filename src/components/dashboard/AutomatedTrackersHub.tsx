@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Card } from "../ui/card";
 import { 
-  Github, 
+  Code, 
   Code2, 
-  Youtube, 
+  Video, 
   BookOpen, 
   RefreshCw, 
   CheckCircle2, 
@@ -224,7 +224,7 @@ export const AutomatedTrackersHub: React.FC<AutomatedTrackersHubProps> = ({
             {/* GitHub Setup */}
             <div className="space-y-1">
               <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-zinc-500 flex items-center gap-1.5">
-                <Github className="w-3.5 h-3.5 text-zinc-800 dark:text-white" />
+                <Code className="w-3.5 h-3.5 text-zinc-800 dark:text-white" />
                 GitHub Username or Profile Link
               </label>
               <input
@@ -284,7 +284,7 @@ export const AutomatedTrackersHub: React.FC<AutomatedTrackersHubProps> = ({
             {/* YouTube Playlist Setup */}
             <div className="space-y-1">
               <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-zinc-500 flex items-center gap-1.5">
-                <Youtube className="w-3.5 h-3.5 text-red-500" />
+                <Video className="w-3.5 h-3.5 text-red-500" />
                 YouTube Playlist Link / Course URL
               </label>
               <input
@@ -340,7 +340,7 @@ export const AutomatedTrackersHub: React.FC<AutomatedTrackersHubProps> = ({
               }`}>
                 <div className="flex justify-between items-center">
                   <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">GitHub</span>
-                  <Github className="w-4 h-4 text-zinc-800 dark:text-white" />
+                  <Code className="w-4 h-4 text-zinc-800 dark:text-white" />
                 </div>
                 <div className="text-[11px] truncate font-medium text-gray-700 dark:text-zinc-300">
                   {config.githubUsername ? config.githubUsername.replace(/^https?:\/\/github\.com\//, "") : "Not Linked"}
@@ -400,7 +400,7 @@ export const AutomatedTrackersHub: React.FC<AutomatedTrackersHubProps> = ({
               }`}>
                 <div className="flex justify-between items-center">
                   <span className="text-[10px] font-bold text-red-600 dark:text-red-400 uppercase tracking-wider">YouTube</span>
-                  <Youtube className="w-4 h-4 text-red-500" />
+                  <Video className="w-4 h-4 text-red-500" />
                 </div>
                 <div className="text-[11px] truncate font-medium text-gray-700 dark:text-zinc-300">
                   {config.youtubePlaylistUrl ? "Playlist Linked" : "Not Linked"}
