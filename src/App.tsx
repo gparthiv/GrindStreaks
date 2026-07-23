@@ -44,7 +44,9 @@ export default function App() {
   const [currentView, setView] = React.useState<"dashboard" | "analytics">("dashboard");
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
   const [isChatOpen, setIsChatOpen] = React.useState(false);
-  const [confettiTrigger, setConfettiTrigger] = React.useState(false);
+  const [showTutorial, setShowTutorial] = React.useState(() => {
+    return !!localStorage.getItem("grindstreaks_user_name_v1") && !localStorage.getItem("grindstreaks_tutorial_completed_v1");
+  });
 
   // Custom User Profile Name State
   const [userName, setUserName] = React.useState<string>(() => {
@@ -59,18 +61,6 @@ export default function App() {
       document.documentElement.classList.remove("dark");
     }
   }, [settings.darkMode]);
-
-  // Trigger celebration on completing any task
-  const lastCompletedCountRef = React.useRef(todayRecord.completedCount);
-  React.useEffect(() => {
-    if (todayRecord.completedCount > lastCompletedCountRef.current) {
-      setConfettiTrigger(true);
-      const timer = setTimeout(() => setConfettiTrigger(false), 4000);
-      lastCompletedCountRef.current = todayRecord.completedCount;
-      return () => clearTimeout(timer);
-    }
-    lastCompletedCountRef.current = todayRecord.completedCount;
-  }, [todayRecord.completedCount]);
 
   // Global Keyboard Shortcuts
   React.useEffect(() => {
@@ -116,27 +106,20 @@ export default function App() {
 
   if (!userName) {
     return (
-      <>
-        <ConfettiEffect trigger={confettiTrigger} />
-        <LandingPage
-          onComplete={(enteredName) => {
-            localStorage.setItem("grindstreaks_user_name_v1", enteredName);
-            setUserName(enteredName);
-            setConfettiTrigger(true);
-            setTimeout(() => setConfettiTrigger(false), 4000);
-          }}
-          darkMode={settings.darkMode}
-          toggleDarkMode={toggleDarkMode}
-        />
-      </>
+      <LandingPage
+        onComplete={(enteredName) => {
+          localStorage.setItem("grindstreaks_user_name_v1", enteredName);
+          setUserName(enteredName);
+          setShowTutorial(true);
+        }}
+        darkMode={settings.darkMode}
+        toggleDarkMode={toggleDarkMode}
+      />
     );
   }
 
   return (
     <div className="min-h-screen bg-[#FAFBFC] text-gray-800 dark:bg-zinc-950 dark:text-zinc-200 transition-colors duration-200 selection:bg-[#4285F4]/20 selection:text-[#4285F4] relative">
-      {/* Dynamic Celebration */}
-      <ConfettiEffect trigger={confettiTrigger} />
-
       {/* Top Header Navigation Panel */}
       <Header
         id="app-header"
@@ -226,11 +209,51 @@ export default function App() {
 
       {/* Floating Chat Button */}
       <button
-        onClick={() => setIsChatOpen(!isChatOpen)}
-        className="fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-xl bg-white dark:bg-zinc-800 flex items-center justify-center cursor-pointer transition-transform hover:scale-105 active:scale-95 border border-gray-200 dark:border-zinc-700 z-50"
+        onClick={() => {
+          setIsChatOpen(!isChatOpen);
+          if (showTutorial) {
+            setShowTutorial(false);
+            localStorage.setItem("grindstreaks_tutorial_completed_v1", "true");
+          }
+        }}
+        className={`fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-xl bg-white dark:bg-zinc-800 flex items-center justify-center cursor-pointer transition-transform hover:scale-105 active:scale-95 border border-gray-200 dark:border-zinc-700 ${
+          showTutorial 
+            ? "z-[110] animate-pulse ring-4 ring-emerald-500 ring-offset-2 dark:ring-offset-zinc-950" 
+            : "z-50"
+        }`}
       >
         <img src={popupPng} alt="Chat with Streako" className="w-10 h-10 object-contain" />
       </button>
+
+      {/* Tutorial Overlay */}
+      {showTutorial && (
+        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center p-6 bg-black/40 backdrop-blur-sm animate-in fade-in duration-500">
+          {/* Invisible backdrop to capture clicks without closing */}
+          <div className="absolute inset-0" />
+          
+          <div className="relative z-[101] bg-white dark:bg-zinc-900 rounded-2xl p-6 md:p-8 max-w-sm w-full shadow-2xl flex flex-col items-center text-center transform translate-y-[-10vh]">
+             <img src={popupPng} alt="Streako" className="w-20 h-20 object-contain mb-4" />
+             <h3 className="text-xl font-bold text-gray-800 dark:text-zinc-100 mb-2">Meet Streako!</h3>
+             <p className="text-gray-600 dark:text-zinc-400 mb-6 text-sm">
+               Your personal AI coach. Click the shining button in the bottom right corner anytime to chat, track your roadmap, and stay focused on your goals!
+             </p>
+             <button 
+               onClick={() => {
+                 setShowTutorial(false);
+                 localStorage.setItem("grindstreaks_tutorial_completed_v1", "true");
+               }}
+               className="text-sm font-semibold text-gray-500 hover:text-gray-800 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors"
+             >
+               Skip
+             </button>
+          </div>
+          
+          {/* Pointing arrow indicator */}
+          <div className="absolute bottom-[110px] right-[40px] animate-bounce text-emerald-500 z-[101]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+          </div>
+        </div>
+      )}
 
       {/* Chatbox Modal */}
       {isChatOpen && (
